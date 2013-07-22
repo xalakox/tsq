@@ -41,9 +41,10 @@ csv()
 .on('end', function(count){
   // when writing to a file, use the 'close' event
   // the 'end' event may fire before the file has been written
-  console.log('Number of lines: '+count);
   console.log("---------\nBy Date\n---------");
-  console.log(JSON.stringify(ret));
+  for(key in ret){
+  	console.log(key+" : "+(ret[key]/60/60)+" hours")
+  }
   //getting total 
 	if (ret!={}){
 		var total = 0;
