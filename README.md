@@ -3,10 +3,12 @@ tsq
 
 Time Sink Query will help you filter the reports from TimeSink app (http://manytricks.com/timesink/), and get a day by day hour usage and a total based on the search string, it will search the window title and app names.
 
+Node.js is required (http://www.nodejs.org/) and the csv package (npm install csv)
+
 Example Usage : 
 
 ```
-tsq.js photoshop illustrator youtube facebook
+node tsq.js photoshop illustrator youtube facebook
 ```
 
 Example Return : 
