@@ -9,7 +9,7 @@ for (var a=0;a<process.argv.length;a++){
 }
 
 var ret = {};
-
+var wintitles = {};
 // opts is optional
 //var opts = ;
 
@@ -27,10 +27,17 @@ csv()
 			if ((row[2].toLowerCase().indexOf(filter[i]) !== -1 || row[3].toLowerCase().indexOf(filter[i]) !== -1) && !done){
 				var d = new Date(row[0]*1000);
 				var dateString = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+				var time = parseFloat(row[0]) - parseFloat(row[4]);
 				if (ret[dateString]){
-					ret[dateString] += parseFloat(row[0]) - parseFloat(row[4]);
+					ret[dateString] += time;
 				}else{
-					ret[dateString] = parseFloat(row[0]) - parseFloat(row[4]);
+					ret[dateString] = time;
+				}
+				var wintitle = row[2];
+				if (wintitles[wintitle]){
+					wintitles[wintitle] += time;
+				}else{
+					wintitles[wintitle] = time;
 				}
 				done = true;
 			}
@@ -41,6 +48,10 @@ csv()
 .on('end', function(count){
   // when writing to a file, use the 'close' event
   // the 'end' event may fire before the file has been written
+  console.log("---------\nBy App\n---------");
+  for(key in wintitles){
+  	console.log(key + " "+(wintitles[key]/60/60)+" hours");
+  }
   console.log("---------\nBy Date\n---------");
   for(key in ret){
   	console.log(key+" : "+(ret[key]/60/60)+" hours")
