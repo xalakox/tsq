@@ -5,6 +5,16 @@ Time Sink Query will help you filter the reports from TimeSink app (http://manyt
 
 Node.js is required (http://www.nodejs.org/) and the csv package (npm install csv)
 
+You can setup Time Sink to auto-export to the same folder this app resides and to auto-reset everyday to keep peformance; this script will pick up all csv files to build the report.
+
+Example Setup : 
+
+![Export Setting](http://salvador.aceves.mx/jing/2013-07-25_1307.png)
+![Reset Setting](http://salvador.aceves.mx/jing/2013-07-25_1309.png)
+
+Important !, first do an export then setup the reset otherwise you will loose all previous data.
+
+
 Example Usage : 
 
 ```
