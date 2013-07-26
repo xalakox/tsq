@@ -15,25 +15,26 @@ var donefiles = 0;
 // opts is optional
 //var opts = ;
 
-var files = fs.readdirSync('./');
+var files = fs.readdirSync(__dirname);
 for(var i in files) {
 	if (files[i] && files[i].substr(files[i].length - 4)==".csv"){
 		csvs.push(files[i]);
 	}
 }
+
 for (var cs=0;cs<csvs.length;cs++){
 	csv()
 	.from.path(__dirname+"/"+csvs[cs], { delimiter: ',', escape: '"' })
 	.transform( function(row){
-	  row.unshift(row.pop());
-	  return row;
+		row.unshift(row.pop());
+		return row;
 	})
 	.on('record', function(row,index){
 
 		if (filter.length>0){
 			var done = false;
 			for (var i=0;i<filter.length;i++){
-				if ((row[2].toLowerCase().indexOf(filter[i]) !== -1 || row[3].toLowerCase().indexOf(filter[i]) !== -1) && !done){
+				if ((row[2].toLowerCase().indexOf(filter[i].toLowerCase()) !== -1 || row[3].toLowerCase().indexOf(filter[i].toLowerCase()) !== -1) && !done){
 					var d = new Date(row[0]*1000);
 					var dateString = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
 					var time = parseFloat(row[0]) - parseFloat(row[4]);
@@ -52,11 +53,11 @@ for (var cs=0;cs<csvs.length;cs++){
 				}
 			}
 		}
-	  //console.log('#'+index+' '+JSON.stringify(row));
+		//console.log('#'+index+' '+JSON.stringify(row));
 	})
 	.on('end', function(count){
 		donefiles++;
-		if (donefiles==csvs.length-1){
+		if (donefiles==csvs.length){
 			// when writing to a file, use the 'close' event
 			// the 'end' event may fire before the file has been written
 			console.log("---------\nBy App\n---------");
